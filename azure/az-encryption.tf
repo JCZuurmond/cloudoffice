@@ -9,7 +9,7 @@ resource "azurerm_key_vault" "nc-vault-disk" {
   access_policy {
     tenant_id       = data.azurerm_client_config.nc-client-conf.tenant_id
     object_id       = data.azurerm_client_config.nc-client-conf.object_id
-    key_permissions = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
+    key_permissions = ["Get", "Create", "Delete", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
   }
 }
 
@@ -23,12 +23,12 @@ resource "azurerm_key_vault" "nc-vault-storage" {
   access_policy {
     tenant_id       = data.azurerm_client_config.nc-client-conf.tenant_id
     object_id       = data.azurerm_client_config.nc-client-conf.object_id
-    key_permissions = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
+    key_permissions = ["Get", "Create", "Delete", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
   }
   access_policy {
     tenant_id       = data.azurerm_client_config.nc-client-conf.tenant_id
     object_id       = azurerm_storage_account.nc-storage-account.identity.0.principal_id
-    key_permissions = ["get", "create", "list", "restore", "recover", "unwrapkey", "wrapkey", "encrypt", "decrypt", "sign", "verify"]
+    key_permissions = ["Get", "Create", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Encrypt", "Decrypt", "Sign", "Verify"]
   }
 }
 
@@ -65,7 +65,7 @@ resource "azurerm_key_vault_access_policy" "nc-vault-disk-access-disk" {
   key_vault_id    = azurerm_key_vault.nc-vault-disk.id
   tenant_id       = azurerm_disk_encryption_set.nc-disk-encrypt.identity.0.tenant_id
   object_id       = azurerm_disk_encryption_set.nc-disk-encrypt.identity.0.principal_id
-  key_permissions = ["get", "decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey", "unwrapKey"]
+  key_permissions = ["Get", "Decrypt", "Encrypt", "Sign", "UnwrapKey", "Verify", "WrapKey", "UnwrapKey"]
 }
 
 resource "time_sleep" "wait_for_vaults" {
