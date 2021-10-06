@@ -8,7 +8,7 @@ output "cloudblock-output" {
 ssh ubuntu@${scaleway_instance_ip.nc-ip.address}
 
 # WebUI #
-https://${var.enable_duckdns == 1 ? "${var.duckdns_domain}/nc" : scaleway_instance_ip.nc-ip.address}${var.web_port == "443" ? "" : ":${var.web_port}"}/
+${var.enable_duckdns == 1 && var.web_port == "443" ? "https://${var.duckdns_domain}/nc/" : ""}${var.enable_duckdns == 1 && var.web_port != "443" ? "https://${var.duckdns_domain}:${var.web_port}/nc/" : ""}${var.enable_duckdns == 0 && var.web_port == "443" ? "https://${scaleway_instance_ip.nc-ip.address}/" : ""}${var.enable_duckdns == 0 && var.web_port != "443" ? "https://${scaleway_instance_ip.nc-ip.address}:${var.web_port}/" : ""}
 
 ## ############## ##
 ## One Time Setup ##
@@ -21,7 +21,8 @@ ssh ubuntu@${scaleway_instance_ip.nc-ip.address} "chmod +x ${var.nc_prefix}-setu
 ## ################### ##
 ssh ubuntu@${scaleway_instance_ip.nc-ip.address}
 
-# If updating containers, remove the old containers - this brings down the service until ansible is re-applied.
+# If updating containers
+# remove the old containers - this brings down the service until ansible is re-applied.
 sudo docker rm -f cloudoffice_nextcloud cloudoffice_database cloudoffice_webproxy cloudoffice_onlyoffice
 
 # Re-apply Ansible playbook via systemd service

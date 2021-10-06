@@ -9,7 +9,7 @@ output "cloudblock-output" {
 ssh ubuntu@${digitalocean_droplet.nc-droplet.ipv4_address}
 
 ## WebUI ##
-https://${var.enable_duckdns == 1 ? "${var.duckdns_domain}/nc" : digitalocean_droplet.nc-droplet.ipv4_address}${var.web_port == "443" ? "" : ":${var.web_port}"}/
+${var.enable_duckdns == 1 && var.web_port == "443" ? "https://${var.duckdns_domain}/nc/" : ""}${var.enable_duckdns == 1 && var.web_port != "443" ? "https://${var.duckdns_domain}:${var.web_port}/nc/" : ""}${var.enable_duckdns == 0 && var.web_port == "443" ? "https://${digitalocean_droplet.nc-droplet.ipv4_address}/" : ""}${var.enable_duckdns == 0 && var.web_port != "443" ? "https://${digitalocean_droplet.nc-droplet.ipv4_address}:${var.web_port}/" : ""}
 
 ## ############## ##
 ## One Time Setup ##
@@ -22,7 +22,8 @@ ssh ubuntu@${digitalocean_droplet.nc-droplet.ipv4_address} "chmod +x ${var.nc_pr
 ## ################### ##
 ssh ubuntu@${digitalocean_droplet.nc-droplet.ipv4_address}
 
-# If updating containers, remove the old containers - this brings down the service until ansible is re-applied.
+# If updating containers
+# remove the old containers - this brings down the service until ansible is re-applied.
 sudo docker rm -f cloudoffice_nextcloud cloudoffice_database cloudoffice_webproxy cloudoffice_onlyoffice
 
 # Re-apply Ansible playbook via systemd service

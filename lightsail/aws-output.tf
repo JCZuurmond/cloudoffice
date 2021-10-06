@@ -9,7 +9,7 @@ output "cloudoffice-output" {
 ssh ubuntu@${aws_lightsail_static_ip.nc-staticip.ip_address}
 
 ## WebUI ##
-https://${var.enable_duckdns == 1 ? "${var.duckdns_domain}/nc" : aws_lightsail_static_ip.nc-staticip.ip_address}${var.web_port == "443" ? "" : ":${var.web_port}"}/
+${var.enable_duckdns == 1 && var.web_port == "443" ? "https://${var.duckdns_domain}/nc/" : ""}${var.enable_duckdns == 1 && var.web_port != "443" ? "https://${var.duckdns_domain}:${var.web_port}/nc/" : ""}${var.enable_duckdns == 0 && var.web_port == "443" ? "https://${aws_lightsail_static_ip.nc-staticip.ip_address}/" : ""}${var.enable_duckdns == 0 && var.web_port != "443" ? "https://${aws_lightsail_static_ip.nc-staticip.ip_address}:${var.web_port}/" : ""}
 
 ## ################### ##
 ## Update Instructions ##
@@ -20,7 +20,8 @@ if [ -f pvars.tfvars ]; then echo "pvars exists, not overwriting"; else mv aws.t
 # Pull updates
 git pull
 
-# If updating containers, remove the old containers - this brings down the service until ansible is re-applied.
+# If updating containers
+# remove the old containers - this brings down the service until ansible is re-applied.
 ssh ubuntu@${aws_lightsail_static_ip.nc-staticip.ip_address}
 sudo docker rm -f cloudblock_application cloudblock_database cloudblock_webproxy cloudblock_onlyoffice
 exit
