@@ -43,7 +43,7 @@ python3.8 -m pip install ansible[azure] --ignore-installed PyYAML
 python3.8 -m ansible galaxy collection install azure.azcollection
 # Grab the python requirements for azure
 rm -f requirements-azure.txt
-wget https://github.com/ansible/ansible/blob/stable-2.8/packaging/requirements/requirements-azure.txt
+wget https://raw.githubusercontent.com/ansible/ansible/stable-2.8/packaging/requirements/requirements-azure.txt
 # Install the requirements
 python3.8 -m pip install -r requirements-azure.txt
 # Make the project directory
