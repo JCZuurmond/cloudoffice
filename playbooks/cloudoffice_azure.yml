@@ -78,7 +78,7 @@
       pip:
         name:
           - docker
-        executable: /usr/bin/pip3
+        executable: /usr/local/bin/pip3
         state: latest
 
     - name: IP Forwarding enable/persist
@@ -622,11 +622,11 @@
         block: |
           [Unit]
           Description=Archives and copies nextcloud_application and nextcloud_database directories to cloud storage
-          
+
           [Timer]
           OnUnitActiveSec=12h
           Unit=nextcloud-backup.service
-          
+
           [Install]
           WantedBy=multi-user.target
 
@@ -641,12 +641,12 @@
           [Unit]
           Description=Archives and copies nextcloud_application and nextcloud_database directories to cloud storage
           After=network.target
-          
+
           [Service]
           ExecStart=/usr/local/bin/ansible-playbook {{ project_directory }}/nextcloud-backup.yml
           Type=simple
           Restart=no
-          
+
           [Install]
           WantedBy=multi-user.target
 
