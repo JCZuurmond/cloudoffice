@@ -31,20 +31,21 @@ EOM
 # Create cloudoffice-ansible-state script
 tee /opt/cloudoffice-ansible-state.sh << EOM
 #!/bin/bash
+add-apt-repository -y ppa:deadsnakes/ppa
 # Update package list
 apt-get update
 # Install pip3 and git
-DEBIAN_FRONTEND=noninteractive apt-get -y install python3-pip git
-pip3 install --upgrade pip
+DEBIAN_FRONTEND=noninteractive apt-get -y install python3.8 git
+python3.8 -m pip install --upgrade pip 
 # Install azure for ansible
-pip3 install ansible[azure]
+python3.8 -m pip install ansible[azure]
 # And the collection
 ansible-galaxy collection install azure.azcollection
 # Grab the python requirements for azure
 rm -f requirements-azure.txt
 wget https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
 # Install the requirements
-pip3 install -r requirements-azure.txt
+python3.8 -m pip install -r requirements-azure.txt
 # Make the project directory
 mkdir -p /opt/git/cloudoffice
 # Clone project into project directory
