@@ -14,7 +14,7 @@ resource "azurerm_key_vault_access_policy" "nc-vault-disk" {
   object_id    = data.azurerm_client_config.nc-client-conf.object_id
 
   key_permissions = [
-    "Get", "Create", "Delete", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"
+    "Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"
   ]
 
   secret_permissions = [
@@ -42,7 +42,7 @@ resource "azurerm_key_vault_access_policy" "nc-vault-storage-nc-client-conf" {
   object_id    = data.azurerm_client_config.nc-client-conf.object_id
 
   key_permissions = [
-    "Get", "Create", "Delete", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"
+    "Get", "Create", "Delete", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"
   ]
 
   secret_permissions = [
@@ -61,7 +61,7 @@ resource "azurerm_key_vault_access_policy" "nc-vault-storage-storage-account" {
   object_id    = azurerm_storage_account.nc-storage-account.identity.0.principal_id
 
   key_permissions = [
-    "Get", "Create", "List", "Restore", "Recover", "Unwrapkey", "Wrapkey", "Encrypt", "Decrypt", "Sign", "Verify"
+    "Get", "Create", "List", "Restore", "Recover", "UnwrapKey", "WrapKey", "Encrypt", "Decrypt", "Sign", "Verify"
   ]
 
   secret_permissions = [
