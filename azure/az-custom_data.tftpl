@@ -38,7 +38,7 @@ apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get -y install python3.8 python3-pip git
 python3.8 -m pip install --upgrade pip 
 # Install azure for ansible
-python3.8 -m pip install ansible[azure] --ignore-installed PyYAML
+python3.8 -m pip install ansible --ignore-installed PyYAML
 # And the collection
 python3.8 -m ansible galaxy collection install azure.azcollection
 # Grab the python requirements for azure
