@@ -36,6 +36,8 @@ add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
 # Install pip3 and git
 DEBIAN_FRONTEND=noninteractive apt-get -y install python3.8 python3-pip git
+# Install azure cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 python3.8 -m pip install --upgrade pip 
 # Install azure for ansible
 python3.8 -m pip install ansible --ignore-installed PyYAML
